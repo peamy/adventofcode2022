@@ -1,0 +1,5 @@
+bin/*
+obj/*
+/.vs
+/AoC2022/bin/Debug/net7.0
+/AoC2022/obj
