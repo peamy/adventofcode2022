@@ -12,7 +12,7 @@ namespace AoC2022.Puzzles._4
         string[] input;
         public Puzzle4()
         {
-            input = FileReader.GetInputForDay(4);
+            input = DataReader.ReadForDay(4);
         }
         public void SolvePartOne()
         {

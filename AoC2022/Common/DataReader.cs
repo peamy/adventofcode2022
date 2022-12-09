@@ -16,7 +16,7 @@ namespace AoC2022.Common
         public static string[] ReadForDay(int day, bool test = false)
         {
             string testi = test ? "Test" : "";
-            string filepath = $"C:\\Users\\rvanes\\Documents\\Repos\\Other Programming\\AoC\\AoC2022\\AoC2022\\Puzzles\\{day}\\Input\\{testi}Input.txt";
+            string filepath = $"..\\..\\..\\Puzzles\\{day}\\Input\\{testi}Input.txt";
             return File.ReadAllLines(filepath);
         }
     }
