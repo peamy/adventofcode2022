@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace AoC2022.Puzzles._8
 {
-    public class Puzzle9
+    public class Puzzle8
     {
         int[,] forest;
         bool[,] results;

@@ -2,6 +2,7 @@
 
 
 using adventofcode2022.Puzzles._2;
+using AoC2022.Puzzles;
 using AoC2022.Puzzles._1;
 using AoC2022.Puzzles._3;
 using AoC2022.Puzzles._4;
