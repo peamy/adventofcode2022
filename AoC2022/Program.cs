@@ -18,6 +18,6 @@ using System.Net.NetworkInformation;
 //var p1p2 = p1.solvePartTwo();
 //Console.WriteLine(p1p2);
 
-var p = new Puzzle12();
+var p = new Puzzle13();
 p.SolvePartOne();
 p.SolvePartTwo();
