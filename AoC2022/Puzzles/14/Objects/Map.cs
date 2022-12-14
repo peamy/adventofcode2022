@@ -13,6 +13,9 @@ namespace AoC2022.Puzzles._14.Objects
 
         private int currentSandX;
         private int currentSandY;
+        private int leftMostRock;
+        private int rightMostRock;
+        private bool finishOnReachTop = false;
 
         public Map(int maxX, int maxY, bool finishtop = false) 
         {
@@ -22,9 +25,6 @@ namespace AoC2022.Puzzles._14.Objects
             finishOnReachTop = finishtop;
         }
 
-        private int leftMostRock;
-        private int rightMostRock;
-        private bool finishOnReachTop = false;
         public void AddRocks(string walls, bool addtomaxwall = true)
         {
             //498,4-> 498,6-> 496,6
@@ -132,8 +132,8 @@ namespace AoC2022.Puzzles._14.Objects
             {
                 if (x+1 < leftMostRock)
                     leftMostRock = x+1;
-                if(x+1 > rightMostRock) 
-                    rightMostRock = x+1;
+                if(x+3 > rightMostRock) 
+                    rightMostRock = x+3;
 
             }
             FullMap[y, x] = obj;

@@ -32,6 +32,7 @@ namespace AoC2022.Puzzles
             var map = InitializeMapPt2();
             map.PrintMap();
             int total = 0;
+            Console.ReadKey();
             while (!map.AddSand())
             {
                 total++;
@@ -45,7 +46,7 @@ namespace AoC2022.Puzzles
 
         private Map InitializeMap()
         {
-
+            var input = DataReader.ReadForDay(14);
 
             int maxx = 0; int maxy = 0;
             foreach (var item in input)
