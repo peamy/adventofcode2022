@@ -45,7 +45,6 @@ namespace AoC2022.Puzzles
 
         private Map InitializeMap()
         {
-            var input = DataReader.ReadForDay(14, true);
 
 
             int maxx = 0; int maxy = 0;
