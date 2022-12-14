@@ -78,7 +78,8 @@ namespace AoC2022.Puzzles._14.Objects
             {
                 return !MoveSand(currentSandY + 1, currentSandX);
             }
-            else if(xOutOfBounds(currentSandX - 1)){
+            else if(xOutOfBounds(currentSandX - 1))
+            {
                 return false;
             }
             else if (FullMap[currentSandY + 1, currentSandX - 1] == ObjectType.AIR)

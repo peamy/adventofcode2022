@@ -33,13 +33,13 @@ namespace AoC2022.Puzzles
             map.PrintMap();
             int total = 0;
             Console.ReadKey();
-            while (!map.AddSand())
+            do
             {
                 total++;
                 //Console.WriteLine("Simulated one grain of sand. Press any button to continue.");
                 //Console.ReadKey();
-            }
-            map.PrintMap();
+            } while (!map.AddSand());
+            //map.PrintMap();
             //29043 too low!
             Console.WriteLine($"Reached the end with {total} grains of sand");
         }
@@ -70,7 +70,7 @@ namespace AoC2022.Puzzles
 
         private Map InitializeMapPt2()
         {
-            var input = DataReader.ReadForDay(14, false);
+            var input = DataReader.ReadForDay(14);
 
 
             int maxx = 0; int maxy = 0;
