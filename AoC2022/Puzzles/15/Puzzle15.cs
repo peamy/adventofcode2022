@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,7 +22,7 @@ namespace AoC2022.Puzzles
         int pt2maxx = 4000000;
         int pt2maxy = 4000000;
 
-        int xmulti = 4000000;
+        BigInteger xmulti = 4000000;
 
         //4211420 too low
         //4361395 too low :(
@@ -68,9 +69,8 @@ namespace AoC2022.Puzzles
                 {
                     int x = completerange.X1 > 0 ? completerange.X1 - 1 : completerange.X2 + 1;
 
-                    //this is for sure wrong. I used a calculator to do this.
-                    string sx = (4 * x).ToString();
-                    string result = sx.Substring(0, sx.Length - 1) + y;
+                    BigInteger bx = xmulti * x;
+                    var result = bx + y;
 
                     Console.WriteLine($"Found the solution! x: {x}, y: {y}, result: {result}");
                     return false;
