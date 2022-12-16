@@ -17,6 +17,11 @@ namespace AoC2022.Puzzles
         int minRangeY;
         int maxRangeY;
 
+        int pt2minx, pt2miny = 0;
+        int pt2maxx = 4000000;
+        int pt2maxy = 4000000;
+
+        int xmulti = 4000000;
 
         //4211420 too low
         //4361395 too low :(
@@ -25,20 +30,60 @@ namespace AoC2022.Puzzles
             var sensors = InitSensors();
             int lineNr = TESTING ? 10 : 2000000;
             countImpossibleSpots(sensors, lineNr);
-
-            //Console.WriteLine( Day15.ProcessPart1(DataReader.ReadForDay(15), lineNr));
         }
 
         public void SolvePartTwo() 
         {
+            var sensors = InitSensors();
 
+
+            for(int y = pt2miny; y < pt2maxy; y++)
+            {
+                if (!IsLineFull(y, sensors))
+                {
+                    break;
+                }
+            }
         }
 
-        private void countImpossibleSpots(List<Sensor> sensors, int y)
+        private bool IsLineFull(int y, List<Sensor> origSensors)
         {
-            //List<HorizontalRange> availableSpots= new List<HorizontalRange>();
-            //availableSpots.Add(new HorizontalRange(minRangeX, maxRangeX));
+            var horizontalRanges = new List<HorizontalRange>();
+            foreach(Sensor sensor in origSensors)
+            {
+                var range = sensor.GetRangeForY(y);
+                if(range.X1 < pt2maxx && range.X2 > 0)
+                {
+                    horizontalRanges.Add(range);
+                }
+            }
 
+            var completerange = horizontalRanges[0];
+            horizontalRanges.Remove(completerange);
+
+            while (horizontalRanges.Count > 0)
+            {
+                var curentRange = horizontalRanges.Where(r => completerange.Overlaps(r)).FirstOrDefault();
+                if (curentRange == null)
+                {
+                    int x = completerange.X1 > 0 ? completerange.X1 - 1 : completerange.X2 + 1;
+
+                    //this is for sure wrong. I used a calculator to do this.
+                    string sx = (4 * x).ToString();
+                    string result = sx.Substring(0, sx.Length - 1) + y;
+
+                    Console.WriteLine($"Found the solution! x: {x}, y: {y}, result: {result}");
+                    return false;
+                }
+                horizontalRanges.Remove(curentRange);
+                completerange.Expand(curentRange);
+            }
+
+            return true;
+        }
+
+        private HashSet<int> countImpossibleSpots(List<Sensor> sensors, int y)
+        {
             var emptyXPositions = new HashSet<int>();
             foreach (Sensor sensor in sensors)
             {
@@ -50,7 +95,7 @@ namespace AoC2022.Puzzles
                     }
                 }
             }
-            Console.WriteLine(emptyXPositions.Count);   
+            return emptyXPositions;
         }
 
 
@@ -125,6 +170,7 @@ namespace AoC2022.Puzzles
         public int X, Y;
         public int ClosestBeaconX, ClosestBeaconY;
         public int Reach;
+
         public Sensor(int x, int y, int bx, int by) 
         {
             X = x; Y = y; ClosestBeaconX= bx; ClosestBeaconY = by;
@@ -137,13 +183,18 @@ namespace AoC2022.Puzzles
             return distanceToPoint <= Reach;
         }
 
+        public bool IsInRange(HorizontalRange range, int y)
+        {
+            return true;
+        }
+
         public HorizontalRange GetRangeForY(int line)
         {
             int heightDifference = Math.Abs(line - Y);
 
             int widthOfLine = Reach - heightDifference;
             if(widthOfLine < 0)
-                return new HorizontalRange(0, 0);
+                return new HorizontalRange(-1, -1);
 
             return new HorizontalRange(X - widthOfLine, X + widthOfLine);
         }
@@ -156,6 +207,23 @@ namespace AoC2022.Puzzles
         {
             X1 = x1;
             X2 = x2;
+        }
+
+        public bool Overlaps(HorizontalRange range)
+        {
+            bool one = X1 >= range.X1 && X1 <= range.X2;
+            bool two = X2 <= range.X2 && X2 >= range.X1;
+
+            bool th = range.X1 >= X1 && range.X1 <= X2;
+            bool f = range.X2 >= X1 && range.X2 <= X2;
+
+            return one || two || th || f;
+        }
+
+        internal void Expand(HorizontalRange curentRange)
+        {
+            X1 = curentRange.X1 < X1 ? curentRange.X1 : X1;
+            X2 = curentRange.X2 > X2 ? curentRange.X2 : X2;
         }
     }
 }
